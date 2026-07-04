@@ -7,25 +7,28 @@ const events = [
     time: '09:00 AM',
     desc: 'A high-energy opening ceremony with keynote talks, live demos, and a stellar DJ set.',
     icon: Rocket,
+    image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Orbit Hackathon',
     time: '11:30 AM',
     desc: 'Build futuristic solutions in teams under a cosmic countdown and futuristic constraints.',
     icon: Orbit,
+    image: 'https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Starlight Showdown',
     time: '07:00 PM',
     desc: 'A grand finale featuring innovation pitches, awards, and immersive visuals.',
     icon: Sparkles,
+    image: 'https://img.pikbest.com/backgrounds/20180925/fantasy-purple-starlight-background_2779681.jpg!bw700',
   },
 ]
 
 const competitions = [
-  { name: 'Moonshot Pitch', type: 'Innovation', prize: '₹25K' },
-  { name: 'Nebula Design', type: 'UI/UX', prize: '₹15K' },
-  { name: 'Astro Coding', type: 'Development', prize: '₹20K' },
+  { name: 'Moonshot Pitch', type: 'Innovation', prize: '₹25K', image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=900&q=80' },
+  { name: 'Nebula Design', type: 'UI/UX', prize: '₹15K', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80' },
+  { name: 'Astro Coding', type: 'Development', prize: '₹20K', image: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=900&q=80' },
 ]
 
 const highlights = [
@@ -46,7 +49,18 @@ const stars = [
 function App() {
   return (
     <div className="min-h-screen text-stardust">
-      <header className="relative overflow-hidden">
+      <header className="relative min-h-[90vh] overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1400&q=80"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="https://videos.pexels.com/video-files/854347/854347-hd_1280_720_25fps.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-slate-950/70" />
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {stars.map((star, index) => (
             <motion.span
@@ -61,7 +75,7 @@ function App() {
           <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-violet-500/10 blur-3xl" />
         </div>
 
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
+        <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
           <div className="text-xl font-semibold tracking-[0.3em] text-emerald-300">IGNITO</div>
           <div className="hidden gap-6 text-sm text-slate-300 md:flex">
             <a href="#home" className="transition hover:text-emerald-300">Home</a>
@@ -71,7 +85,7 @@ function App() {
           </div>
         </nav>
 
-        <section id="home" className="mx-auto grid max-w-7xl items-center gap-12 px-6 pb-24 pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-32">
+        <section id="home" className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-6 pb-24 pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-32">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-200">
               <Satellite size={16} />
@@ -143,11 +157,14 @@ function App() {
             {events.map((event, index) => {
               const Icon = event.icon
               return (
-                <motion.article key={event.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 backdrop-blur">
-                  <div className="mb-4 inline-flex rounded-2xl bg-emerald-400/10 p-3 text-emerald-300"><Icon size={20} /></div>
-                  <div className="mb-2 text-sm text-slate-400">{event.time}</div>
-                  <h3 className="text-xl font-semibold text-white">{event.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-400">{event.desc}</p>
+                <motion.article key={event.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur">
+                  <img src={event.image} alt={event.title} className="h-44 w-full object-cover" />
+                  <div className="p-6">
+                    <div className="mb-4 inline-flex rounded-2xl bg-emerald-400/10 p-3 text-emerald-300"><Icon size={20} /></div>
+                    <div className="mb-2 text-sm text-slate-400">{event.time}</div>
+                    <h3 className="text-xl font-semibold text-white">{event.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-400">{event.desc}</p>
+                  </div>
                 </motion.article>
               )
             })}
@@ -163,11 +180,14 @@ function App() {
           </div>
           <div className="grid gap-5 md:grid-cols-3">
             {competitions.map((item) => (
-              <div key={item.name} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
-                <div className="mb-3 flex items-center gap-2 text-emerald-300"><Trophy size={16} /> {item.type}</div>
-                <h3 className="text-lg font-semibold text-white">{item.name}</h3>
-                <p className="mt-3 text-sm text-slate-400">Compete with the brightest minds and win exciting rewards.</p>
-                <div className="mt-5 text-sm font-semibold text-emerald-300">Prize: {item.prize}</div>
+              <div key={item.name} className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/70">
+                <img src={item.image} alt={item.name} className="h-36 w-full object-cover" />
+                <div className="p-5">
+                  <div className="mb-3 flex items-center gap-2 text-emerald-300"><Trophy size={16} /> {item.type}</div>
+                  <h3 className="text-lg font-semibold text-white">{item.name}</h3>
+                  <p className="mt-3 text-sm text-slate-400">Compete with the brightest minds and win exciting rewards.</p>
+                  <div className="mt-5 text-sm font-semibold text-emerald-300">Prize: {item.prize}</div>
+                </div>
               </div>
             ))}
           </div>
